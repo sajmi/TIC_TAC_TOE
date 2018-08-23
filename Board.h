@@ -1,6 +1,10 @@
 #ifndef BOARD_H
 #define BOARD_H
-
+#include <iostream>
+#include <vector>
+#include <tuple>
+using namespace std;
+typedef vector<tuple<int,int>> vec_tup ;
 enum Piece
 {
     X = 'X',
@@ -30,7 +34,10 @@ public:
     bool isSpaceAlreadyPlayed(int x,int y);
     void setCountWinCharacters();
     int getFieldSize() ;
-    void copyBoardToTmpBoard();
+
+
+    vec_tup getAllAvailablePosition();
+
 
 private:
 

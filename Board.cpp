@@ -1,5 +1,5 @@
 #include "Board.h"
-#include <iostream>
+
 #include <limits>
 #include <cstring>
 #include "math.h"
@@ -65,13 +65,16 @@ void Board::createFieldForGame(){
 
         if (cin.fail())
         {
-            cout << "Please enter a valid integer" << endl;
+            cout << "Please enter a valid integer." << endl;
             error =true;
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(),'\n');
-            cerr <<  "Input was not an integer!Input muss be >= 10 ." << endl;
+            cerr <<  "Input was not an integer!Input muss be >= 10 !" << endl;
 
-        }else{
+        }
+        if(!error){
+
+
             board = new char*[this->fieldSize];
             for(int i = 0; i < this->fieldSize; ++i)
                 board[i] = new char[this->fieldSize];
@@ -205,7 +208,7 @@ bool Board::isWinnerByBottemLeftToTopRightDiagonal() {
     return ret;
 }
 bool Board::isWinner(){
-        copyBoardToTmpBoard();
+
     return isWinnerByColumns() || isWinnerByRows()||
             isWinnerByTopRigthToBottomLeftDiagonal()||
             isWinnerByBottemLeftToTopRightDiagonal();
@@ -213,11 +216,16 @@ bool Board::isWinner(){
 
 }
 
-void Board::copyBoardToTmpBoard(){
-    memcpy(copyBoard,board,sizeof(**board));
-    delete copyBoard;
+vec_tup Board::getAllAvailablePosition(){
+    vec_tup ret_vec;
+    for(int row=0;row<fieldSize;row++){
+        for(int column=0;column<fieldSize;column++){
+            if(board[row][column]!=Blank)
+                ret_vec.push_back(make_tuple(row,column));
+        }
+    }
+    //    return ret_vec;
 }
-
 void Board::cleanStream() {
     //    while (getchar() != '\n');
     cout << "\x1B[2J\x1B[H";//vycistim konzolu

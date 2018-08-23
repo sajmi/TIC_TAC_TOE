@@ -23,6 +23,7 @@ public:
 
     static int getGmMode();
 
+
 private:
     class PlayerPrivate;
     PlayerPrivate *mPlayer;
