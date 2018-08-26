@@ -17,15 +17,16 @@ Game::Game(Player *player1, Board playingBoard){
 }
 
 void Game::startGame() {
+
     while(!isGameOver()) {
         playingPlayField.printCurrentField();
-        Game::Position playerMove;
+        Board::Position playerMove;
         if (turn % 2 != 0) {
             playerMove = getMoveFromPlayer(player1);
             playingPlayField.placeMoveOnPlayField(player1->getPlayerSymbol(), playerMove.x,playerMove.y);
         }
         else {
-            if(this->player1->getGmMode()==0){
+            if(this->player1->getGameMode()==0){
                 playerMove = getMoveFromPlayer(player2);
 
             }
@@ -45,14 +46,18 @@ void Game::startGame() {
         cout << "Congrats, " << player1->getPlayerName() << "! You won this game." << endl;
     else
         cout << "Congrats, " << player2->getPlayerName() << "! You won this game." << endl;
+
+
+
+
 }
 
 bool Game::isGameOver() {
     return playingPlayField.isWinner() ;
 }
 
-Game::Position Game::getMoveFromPlayer(Player *player) {
-    Position playedSpacePosition;
+Board::Position Game::getMoveFromPlayer(Player *player) {
+    Board::Position playedSpacePosition;
 
     do {
         cout << player->getPlayerName() << ", what tile do you wish to play? ";
@@ -67,24 +72,24 @@ void Game::setStartPlayer(){
 
 
 
-        bool  error = false;
+    bool  error = false;
 
-        do
+    do
+    {
+        error=false;
+        cout <<"Which player will start the game? ";
+        cin >> turn;
+
+        if (cin.fail()||turn>2 || turn<0)
         {
-            error=false;
-             cout <<"which player will start the game? ";
-            cin >> turn;
+            cout << "Please enter a valid integer" << endl;
+            error = true;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(),'\n');
+            cerr <<  "Input was not an integer!Input muss be 1 or 2." << endl;
 
-            if (cin.fail()||turn>2 || turn<0)
-            {
-                cout << "Please enter a valid integer" << endl;
-                error = 1;
-                cin.clear();
-                cin.ignore(numeric_limits<streamsize>::max(),'\n');
-                cerr <<  "Input was not an integer!Input muss be 1 or 2." << endl;
-
-            }
-        }while(error);
+        }
+    }while(error);
 
 }
 void Game::cleanStream() {

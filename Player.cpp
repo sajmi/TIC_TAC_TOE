@@ -1,7 +1,7 @@
 #include "Player.h"
 #include <iostream>
 #include <string>
-int Player::gmMode =2;
+int Player::gameMode =2;
 char Player::SYMBOL='\0';
 using namespace std;
 class  Player::PlayerPrivate
@@ -12,22 +12,20 @@ public:
 };
 
 Player::Player(){
-    if(gmMode==2){
+    if(gameMode==2){
         int mode;
         cout << "Game mode:\n\t0 ----> Human vs Human\n\t1 ----> Human vs Computer\n" ;
         cin >> mode;
         setGameMode(mode);
         setPlayerAttributes(1);
         mPlayer= new PlayerPrivate();
-        mPlayer->player= new Player(mode);
+        mPlayer->player= new Player();
         setPlayer2(mode,SYMBOL);
     }
 
 }
 
-Player::Player(int mode){
 
-}
 void Player::setPlayer2(int mode,char sym){
 
     if(mode==0){
@@ -55,13 +53,10 @@ void Player::setPlayerAttributes(int playerNumber) {
 }
 
 void Player::setGameMode(int mode){
-    Player::gmMode = mode;
+    Player::gameMode = mode;
 }
 
-void Player::setPlayerName(string value)
-{
-    playerName = value;
-}
+
 
 void Player::setPlayerSymbol(char value)
 {
@@ -74,16 +69,16 @@ char Player::getPlayerSymbol() {
 string Player::getPlayerName() {
     return this->playerName;
 }
-char Player::player2Symbol(){
+char Player::getPlayer2Symbol(){
     return mPlayer->player->getPlayerSymbol();
 }
 Player* Player::getPlayer2(){
     return mPlayer->player;
 }
 
-int Player::getGmMode()
+int Player::getGameMode()
 {
-    return gmMode;
+    return gameMode;
 }
 void Player::cleanStream() {
     while (getchar() != '\n');

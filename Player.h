@@ -8,37 +8,43 @@ using namespace std;
 class Player {
 public:
     Player();
-    Player(int mode);
     ~Player();
+    /** This function set atributes for player.
+     * @brief setPlayerAttributes
+     * @param playerNumber
+     */
     void setPlayerAttributes(int playerNumber);
+    /** this function return character for player
+     * @brief getPlayerSymbol
+     * @return
+     */
     char getPlayerSymbol();
     string getPlayerName();
-    void cleanStream();
-    void setGameMode(int mode);
-    void setPlayerName(string value);
 
     void setPlayerSymbol(char value);
-    char player2Symbol();
+    char getPlayer2Symbol();
     Player * getPlayer2();
 
-    static int getGmMode();
+    void setGameMode(int mode);
+
+
+
+    static int getGameMode();
+
+    void cleanStream();
 
 
 private:
     class PlayerPrivate;
     PlayerPrivate *mPlayer;
-    void setModeGame();
+
     string playerName;
     char playerSymbol;
 
-    static int gmMode;
-    static char SYMBOL;
-
-    static Player* instancePlayer;
     Player* player2;
     void setPlayer2(int mode, char sym);
-
-    /*AI TEST */
+    static int gameMode;
+    static char SYMBOL;
 
 
 

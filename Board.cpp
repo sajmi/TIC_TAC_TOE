@@ -3,11 +3,13 @@
 #include <limits>
 #include <cstring>
 #include "math.h"
+
 using namespace std;
 
 Board::Board()
 {
 }
+
 Board::Board(char symbolPlayer1, char symbolPlayer2){
 
     this->playerSymbol1=symbolPlayer1;
@@ -84,7 +86,11 @@ void Board::createFieldForGame(){
         }
     }while(error);
 }
-
+void Board::clearField(){
+    for(int i = 0; i < this->fieldSize; i++)
+        for(int j=0; j<this->fieldSize; j++)
+            board[i][j]=Blank;
+}
 int Board::getFieldSize()
 {
     return fieldSize;
@@ -100,7 +106,7 @@ bool Board::isWinnerByColumns(){
             if(newrow<fieldSize&& newrow>=0 && symbol!=Blank){
                 if((board[newrow][column]==symbol)){
                     countSymbol++;
-                    if(countSymbol==3)
+                    if(countSymbol==countWinCharacters)
                         return true;
                 }
                 else
@@ -123,7 +129,7 @@ bool Board::isWinnerByRows(){
             if((column+1)<=fieldSize&& (column+1)>=0 && symbol!=Blank){
                 if((board[row][column+1]==symbol)){
                     countSymbol++;
-                    if(countSymbol==3)
+                    if(countSymbol==countWinCharacters)
                         return true;
                 }  else
                     countSymbol=1;
@@ -162,7 +168,7 @@ bool Board::isWinnerByTopRigthToBottomLeftDiagonal() {
             if(col>=0&&col<fieldSize&&row<fieldSize){
                 if(symbol==board[row][col]&&board[row][col]!=Blank){
                     countSymbol++;
-                    if(countSymbol==3)
+                    if(countSymbol==countWinCharacters)
                         return true;
                 }
                 else{
@@ -185,24 +191,23 @@ bool Board::isWinnerByTopRigthToBottomLeftDiagonal() {
 bool Board::isWinnerByBottemLeftToTopRightDiagonal() {
     bool ret = false;
     int countSymbol=1;
-    //vyzera byt ok
-
     for (int slice = 0; slice < 2 * fieldSize - 1; ++slice) {
         int z = (slice < fieldSize) ? 0 : slice - fieldSize + 1;
         for (int j = z; j <= slice - z; ++j) {
             char symbol=board[j][slice - j];
             int col=(slice-j-1);
             int row=j+1;
-            if(col>=0&&col<fieldSize&&row<fieldSize)
+            if(col>=0 && col<fieldSize && row<fieldSize){
                 if(symbol==board[row][col]&&board[row][col]!=Blank){
                     countSymbol++;
-                    if(countSymbol==3)
+                    if(countSymbol==countWinCharacters)
                         return true;
                 }
                 else{
                     countSymbol=1;
                 }
 
+            }
         }
     }
     return ret;
@@ -216,17 +221,18 @@ bool Board::isWinner(){
 
 }
 
-vec_tup Board::getAllAvailablePosition(){
-    vec_tup ret_vec;
-    for(int row=0;row<fieldSize;row++){
-        for(int column=0;column<fieldSize;column++){
-            if(board[row][column]!=Blank)
-                ret_vec.push_back(make_tuple(row,column));
-        }
-    }
-    //    return ret_vec;
-}
+//vec_tup Board::getAllAvailablePosition(){
+//    vec_tup ret_vec;
+//    for(int row=0;row<fieldSize;row++){
+//        for(int column=0;column<fieldSize;column++){
+//            if(board[row][column]!=Blank)
+//                ret_vec.push_back(make_tuple(row,column));
+//        }
+//    }
+//    return ret_vec;
+//}
 void Board::cleanStream() {
     //    while (getchar() != '\n');
     cout << "\x1B[2J\x1B[H";//vycistim konzolu
 }
+
