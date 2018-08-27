@@ -14,7 +14,7 @@ public:
 Player::Player(){
     if(gameMode==2){
         int mode;
-        cout << "Game mode:\n\t0 ----> Human vs Human\n\t1 ----> Human vs Computer\n" ;
+        cout << "Game mode:\n\t0 ----> Human vs Human\n\t1 ----> Human vs Computer\nSelect game mode: " ;
         cin >> mode;
         setGameMode(mode);
         setPlayerAttributes(1);
@@ -37,8 +37,9 @@ void Player::setPlayer2(int mode,char sym){
     }
 }
 Player::~Player(){
-    if(player2!=NULL)
+    if(player2!=NULL){
         delete player2;
+    }
 }
 
 void Player::setPlayerAttributes(int playerNumber) {

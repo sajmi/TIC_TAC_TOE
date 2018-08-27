@@ -2,7 +2,6 @@
 #define BOARD_H
 #include <iostream>
 #include <vector>
-#include <tuple>
 using namespace std;
 
 #define Blank ' '
@@ -12,11 +11,19 @@ class Board
 {
 
 public:
+    /** struct for positioning characters of players
+     * @brief The Position struct
+     */
     struct Position{
         int x;
         int y;
     };
     Board();
+    /**
+     * @brief Board -create playing field
+     * @param symbolPlayer1
+     * @param symbolPlayer2
+     */
     Board(char symbolPlayer1,char symbolPlayer2);
 
     /** this function insert into playing field one character
@@ -44,12 +51,13 @@ public:
      * @brief isWinnerByTopRigthToBottomLeftDiagonal
      * @return true if is winner else false
      */
-    bool isWinnerByTopRigthToBottomLeftDiagonal();
+    bool isWinnerByTopLeftToBottomRightDiagonal();
     /**
      * @brief isWinnerByBottemLeftToTopRightDiagonal
      * @return   true if is winner else false
      */
-    bool isWinnerByBottemLeftToTopRightDiagonal();
+
+    bool isWinnerByBottomRightToTopLeftDiagonal();
     /** This function print actual playing field to console
      * @brief printCurrentField
      */
@@ -82,11 +90,7 @@ public:
     void clearField();
 
 
-//    vec_tup getAllAvailablePosition();
 
-    void copyBoardToTmpBoard();
-    void deleteCopyBoard();
-    Position minimax();
 
 private:
 

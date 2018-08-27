@@ -58,14 +58,17 @@ bool Game::isGameOver() {
 
 Board::Position Game::getMoveFromPlayer(Player *player) {
     Board::Position playedSpacePosition;
+    cout << player->getPlayerName() << ", what tile do you wish to play? ";
+    cleanStream();
+    while(!(cin >> playedSpacePosition.x >> playedSpacePosition.y))
+    {
+        cout << "Please enter a valid integer." << endl;
 
-    do {
-        cout << player->getPlayerName() << ", what tile do you wish to play? ";
-        cin >> playedSpacePosition.x >> playedSpacePosition.y;
-        cleanStream();
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(),'\n');
+        cerr <<  "Input was not an integer!Input muss be >= "<<playingPlayField.getFieldSize() <<"\nInsert new position:";
 
-    } while (0 <= playedSpacePosition.x && playedSpacePosition.x <= 9 && 0 <= playedSpacePosition.y  &&playedSpacePosition.y <= 9 &&
-             playingPlayField.isSpaceAlreadyPlayed( playedSpacePosition.x, playedSpacePosition.y));
+    }
     return playedSpacePosition;
 }
 void Game::setStartPlayer(){

@@ -19,16 +19,35 @@ public:
      * @return
      */
     char getPlayerSymbol();
+    /** this function return player name
+     * @brief getPlayerName
+     * @return
+     */
     string getPlayerName();
-
+    /**this function set player symbol
+     * @brief setPlayerSymbol
+     * @param value
+     */
     void setPlayerSymbol(char value);
+    /** return player symbol from private class
+     * @brief getPlayer2Symbol
+     * @return
+     */
     char getPlayer2Symbol();
+    /** return player pointer from private class
+     * @brief getPlayer2
+     * @return
+     */
     Player * getPlayer2();
-
+    /** set game mode
+     * @brief setGameMode
+     * @param mode
+     */
     void setGameMode(int mode);
-
-
-
+    /** return game mode
+     * @brief getGameMode
+     * @return
+     */
     static int getGameMode();
 
     void cleanStream();

@@ -31,7 +31,7 @@ void Board::setCountWinCharacters(){
         if (cin.fail()||countWinCharacters<3||countWinCharacters>fieldSize)
         {
             cout << "Please enter a valid integer" << endl;
-            error = 1;
+            error = true;
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(),'\n');
             cerr <<  "Input was not an integer!Input muss be >= 3." << endl;
@@ -86,6 +86,8 @@ void Board::createFieldForGame(){
         }
     }while(error);
 }
+
+
 void Board::clearField(){
     for(int i = 0; i < this->fieldSize; i++)
         for(int j=0; j<this->fieldSize; j++)
@@ -155,7 +157,7 @@ void Board::placeMoveOnPlayField(char playerSymbol, int x,int y){
     board[x][y]=playerSymbol;
 }
 
-bool Board::isWinnerByTopRigthToBottomLeftDiagonal() {
+bool Board::isWinnerByTopLeftToBottomRightDiagonal() {
     bool ret = false;
     int countSymbol=1;
 
@@ -188,7 +190,7 @@ bool Board::isWinnerByTopRigthToBottomLeftDiagonal() {
     return ret;
 }
 
-bool Board::isWinnerByBottemLeftToTopRightDiagonal() {
+bool Board::isWinnerByBottomRightToTopLeftDiagonal() {
     bool ret = false;
     int countSymbol=1;
     for (int slice = 0; slice < 2 * fieldSize - 1; ++slice) {
@@ -215,24 +217,13 @@ bool Board::isWinnerByBottemLeftToTopRightDiagonal() {
 bool Board::isWinner(){
 
     return isWinnerByColumns() || isWinnerByRows()||
-            isWinnerByTopRigthToBottomLeftDiagonal()||
-            isWinnerByBottemLeftToTopRightDiagonal();
+            isWinnerByTopLeftToBottomRightDiagonal()||
+            isWinnerByBottomRightToTopLeftDiagonal();
 
 
 }
 
-//vec_tup Board::getAllAvailablePosition(){
-//    vec_tup ret_vec;
-//    for(int row=0;row<fieldSize;row++){
-//        for(int column=0;column<fieldSize;column++){
-//            if(board[row][column]!=Blank)
-//                ret_vec.push_back(make_tuple(row,column));
-//        }
-//    }
-//    return ret_vec;
-//}
 void Board::cleanStream() {
-    //    while (getchar() != '\n');
     cout << "\x1B[2J\x1B[H";//vycistim konzolu
 }
 
