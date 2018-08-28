@@ -24,6 +24,7 @@ public:
      * @param symbolPlayer1
      * @param symbolPlayer2
      */
+
     Board(char symbolPlayer1,char symbolPlayer2);
 
     /** this function insert into playing field one character
@@ -95,6 +96,7 @@ public:
 private:
 
     void createFieldForGame();
+    void deleteBoard();
     char **board;
     char playerSymbol1, playerSymbol2;
     int countWinCharacters;

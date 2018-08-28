@@ -19,6 +19,7 @@ Board::Board(char symbolPlayer1, char symbolPlayer2){
     setCountWinCharacters();
 
 }
+
 void Board::setCountWinCharacters(){
     bool  error = false;
 
@@ -222,7 +223,12 @@ bool Board::isWinner(){
 
 
 }
+void Board::deleteBoard(){
+    for(int i=0;i<fieldSize;i++)
+        delete[] board[i];
+    delete []board;
 
+}
 void Board::cleanStream() {
     cout << "\x1B[2J\x1B[H";//vycistim konzolu
 }
